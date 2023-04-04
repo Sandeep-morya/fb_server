@@ -1,5 +1,9 @@
-﻿const express = require("express");
+﻿require("./config/connection")();
+require('dotenv').config();
+
+const express = require("express");
 const cors = require("cors");
+
 const userRoute = require("./routes/users");
 const app = express();
 
@@ -14,6 +18,6 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRoute);
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
 	console.log("server is running");
 });
