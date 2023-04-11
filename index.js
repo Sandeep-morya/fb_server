@@ -7,7 +7,7 @@ const cors = require("cors");
 const accountRoute = require("./routes/accountRoute");
 const postRoute = require("./routes/postsRoute");
 const { getUserDocument } = require("./controller/userController");
-const { getSinglePost } = require("./controller/postController");
+const { getSinglePost, getAllPosts } = require("./controller/postController");
 
 const app = express();
 
@@ -21,7 +21,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile/:id", getUserDocument);
-app.get("posts/single/:id", getSinglePost);
+app.get("/posts/single/:id", getSinglePost);
+app.get("/posts/all", getAllPosts);
 
 app.use("/account", accountRoute);
 app.use("/post", postRoute);

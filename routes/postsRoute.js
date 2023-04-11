@@ -8,7 +8,6 @@ const router = Router();
 router.use(tokenVerification);
 
 router.post("/create", createNewPost);
-
 router.patch("/update/:id", updatePost);
 router.delete("/delete/:id", deletePost);
 

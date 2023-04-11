@@ -1,7 +1,7 @@
 ﻿const User = require("../model/userModel");
 const Post = require("../model/postModel");
 const asyncHandler = require("express-async-handler");
-
+require("dotenv").config();
 const returnUpdated = { new: true };
 
 const createNewPost = asyncHandler(async (req, res) => {
@@ -60,4 +60,21 @@ const getSinglePost = asyncHandler(async (req, res) => {
 	res.send(post);
 });
 
-module.exports = { createNewPost, updatePost, deletePost, getSinglePost };
+const getAllPosts = asyncHandler(async (req, res) => {
+	const secret = req.headers.authorization;
+
+	if (process.env.SECERT == secret) {
+		const posts = await Post.find();
+		res.send(posts);
+	} else {
+		res.status(405).send("");
+	}
+});
+
+module.exports = {
+	createNewPost,
+	updatePost,
+	deletePost,
+	getSinglePost,
+	getAllPosts,
+};
