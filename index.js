@@ -1,10 +1,10 @@
 ﻿require("./config/connection")();
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
 
-const userRoute = require("./routes/users");
+const userRoute = require("./routes/usersRoute");
 const app = express();
 
 // :: middlewares ::
