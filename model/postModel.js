@@ -14,7 +14,7 @@ export const postSchema = mongoose.Schema(
 		url: {
 			type: String,
 		},
-		userId: {
+		owner: {
 			type: ObjectId,
 			required: true,
 		},
