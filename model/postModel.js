@@ -1,7 +1,7 @@
 ﻿const mongoose = require("mongoose");
 
 const { String, Boolean, ObjectId, Number } = mongoose.Schema.Types;
-export const postSchema = mongoose.Schema(
+const postSchema = mongoose.Schema(
 	{
 		type: {
 			type: String,
@@ -14,7 +14,7 @@ export const postSchema = mongoose.Schema(
 		url: {
 			type: String,
 		},
-		owner: {
+		user_id: {
 			type: ObjectId,
 			required: true,
 		},
@@ -67,4 +67,4 @@ export const postSchema = mongoose.Schema(
 	{ timestamps: true },
 );
 
-module.exports = mongoose.model("Post", postSchema)
+module.exports = mongoose.model("Post", postSchema);
