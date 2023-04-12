@@ -14,7 +14,14 @@ const { String, Boolean, ObjectId } = mongoose.Schema.Types;
 const userSchema = mongoose.Schema(
 	{
 		name: { type: String },
-		image: { type: String },
+		image: {
+			type: String,
+			required: true,
+		},
+		cover: {
+			type: String,
+			default: "https://picsum.photos/1920/1080?random",
+		},
 		email: { type: String, default: "" },
 		mobile: { type: String, required: true, unique: true },
 		password: { type: String, requied: true },
@@ -64,11 +71,9 @@ const userSchema = mongoose.Schema(
 				},
 			],
 			default: [],
-			
 		},
 	},
 	{ timestamps: true },
 );
-
 
 module.exports = mongoose.model("User", userSchema);
