@@ -20,7 +20,7 @@ const registerController = asyncHandler(async (req, res) => {
 	const user = new User({ ...req.body, password: hashedPassword });
 
 	const { _id } = await user.save();
-	const token = jwt.sign(JSON.stringify(_id), process.env.SECERT);
+	const token = jwt.sign(JSON.stringify(_id), process.env.SECRET);
 
 	res.send({ message: "Registration Successful", token });
 });
@@ -41,10 +41,8 @@ const loginController = asyncHandler(async (req, res) => {
 		return;
 	}
 
-	const token = jwt.sign(String(user._id), process.env.SECERT);
+	const token = jwt.sign(String(user._id), process.env.SECRET);
 	res.send({ message: "Login Successful", token });
 });
-
-
 
 module.exports = { loginController, registerController };

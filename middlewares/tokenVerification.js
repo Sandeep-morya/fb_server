@@ -7,9 +7,9 @@ const asyncHandler = require("express-async-handler");
  *
  */
 const tokenVerification = asyncHandler(async (req, res, next) => {
-		const token = req.headers.authorization;
-		req.body.user_id = jwt.verify(token, process.env.SECERT);
-		next();
+	const token = req.headers.authorization;
+	req.body.user_id = jwt.verify(token, process.env.SECRET);
+	next();
 });
 
 module.exports = tokenVerification;
