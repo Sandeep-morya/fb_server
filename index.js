@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const accountRoute = require("./routes/accountRoute");
 const postRoute = require("./routes/postsRoute");
+const jwtRoute = require("./routes/jwtRoute");
 const { getUserDocument } = require("./controller/userController");
 const { getSinglePost, getAllPosts } = require("./controller/postController");
 
@@ -26,6 +27,7 @@ app.get("/posts/all", getAllPosts);
 
 app.use("/account", accountRoute);
 app.use("/post", postRoute);
+app.use("/jwt", jwtRoute);
 
 app.listen(process.env.PORT, () => {
 	console.log("server is running");

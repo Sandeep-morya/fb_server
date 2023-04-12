@@ -64,7 +64,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 	const secret = req.headers.authorization;
 
 	if (process.env.SECERT == secret) {
-		const posts = await Post.find();
+		const posts = await Post.find().sort({ updatedAt: -1 });
 		res.send(posts);
 	} else {
 		res.status(405).send("");

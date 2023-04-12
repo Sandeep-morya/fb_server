@@ -13,6 +13,7 @@ const postSchema = mongoose.Schema(
 		},
 		url: {
 			type: String,
+			default: "",
 		},
 		user_id: {
 			type: ObjectId,
