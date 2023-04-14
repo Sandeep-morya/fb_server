@@ -19,13 +19,17 @@ const createNewPost = asyncHandler(async (req, res) => {
 	});
 });
 
-const updatePost = asyncHandler(async (req, res) => {
+const editPost = asyncHandler(async (req, res) => {
 	const post_id = req.params.id;
 	const user_id = req.body.user_id;
 	const post = await Post.findById(post_id);
 
 	if (post.user_id == user_id) {
-		const post = await Post.findByIdAndUpdate(post_id, req.body, returnUpdated);
+		const post = await Post.findByIdAndUpdate(
+			post_id,
+			{ text: req.body.text },
+			returnUpdated,
+		);
 		res.send(post);
 		return;
 	} else {
@@ -63,7 +67,7 @@ const getSinglePost = asyncHandler(async (req, res) => {
 const getAllPosts = asyncHandler(async (req, res) => {
 	const secret = req.headers.authorization;
 	// console.log(process.env.SECRET == secret, process.env.SECRET, { secret });
-	console.log(req.query);
+	// console.log(req.query);
 
 	if (process.env.SECRET == secret) {
 		const posts = await Post.find(req.query).sort({ updatedAt: -1 });
@@ -75,7 +79,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 
 module.exports = {
 	createNewPost,
-	updatePost,
+	editPost,
 	deletePost,
 	getSinglePost,
 	getAllPosts,

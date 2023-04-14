@@ -20,7 +20,7 @@ const registerController = asyncHandler(async (req, res) => {
 	const user = new User({ ...req.body, password: hashedPassword });
 
 	const { _id } = await user.save();
-	const token = jwt.sign(JSON.stringify(_id), process.env.SECRET);
+	const token = jwt.sign(String(_id), process.env.SECRET);
 
 	res.send({ message: "Registration Successful", token });
 });

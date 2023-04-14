@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
 		},
 		cover: {
 			type: String,
-			default: "https://picsum.photos/1920/1080?random",
+			default: "",
 		},
 		email: { type: String, default: "" },
 		mobile: { type: String, required: true, unique: true },

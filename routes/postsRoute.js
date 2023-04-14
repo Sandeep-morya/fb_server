@@ -1,5 +1,9 @@
 ﻿const { Router } = require("express");
-const { createNewPost, updatePost, deletePost } = require("../controller/postController");
+const {
+	createNewPost,
+	editPost,
+	deletePost,
+} = require("../controller/postController");
 const tokenVerification = require("../middlewares/tokenVerification");
 
 const router = Router();
@@ -8,7 +12,7 @@ const router = Router();
 router.use(tokenVerification);
 
 router.post("/create", createNewPost);
-router.patch("/update/:id", updatePost);
+router.patch("/update/:id", editPost);
 router.delete("/delete/:id", deletePost);
 
 module.exports = router;
