@@ -36,6 +36,15 @@ const userSchema = mongoose.Schema(
 			],
 			default: [],
 		},
+		requests: {
+			type: [
+				{
+					type: ObjectId,
+					ref: "User",
+				},
+			],
+			default: [],
+		},
 		followers: {
 			type: [
 				{
