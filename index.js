@@ -13,7 +13,20 @@ const jwtRoute = require("./routes/jwtRoute");
 const userProfileRoute = require("./routes/profileRoute");
 const friendRoute = require("./routes/friendRoute");
 
+const http = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
+	cors: {},
+});
+
+io.on("connection", (socket) => {
+	const { user } = socket.handshake.query;
+	console.log({ user });
+});
 
 // :: middlewares ::
 app.use(cors());
@@ -35,6 +48,6 @@ app.use("/jwt", jwtRoute);
 app.use("/user", userProfileRoute);
 app.use("/friend", friendRoute);
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
 	console.log("server is running");
 });
