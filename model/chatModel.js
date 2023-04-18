@@ -2,19 +2,18 @@
 
 const { ObjectId } = mongoose.Schema.Types;
 
-
 const chatSchema = mongoose.Schema(
 	{
-		participants: [
+		members: [
 			{
-				type:ObjectId,
+				type: ObjectId,
 				ref: "User",
 				required: true,
 			},
 		],
 		messages: [
 			{
-				type:ObjectId,
+				type: ObjectId,
 				ref: "Message",
 			},
 		],

@@ -12,6 +12,7 @@ const postRoute = require("./routes/postsRoute");
 const jwtRoute = require("./routes/jwtRoute");
 const userProfileRoute = require("./routes/profileRoute");
 const friendRoute = require("./routes/friendRoute");
+const chatRoute = require("./routes/chatRoute");
 
 const http = require("http");
 const { Server } = require("socket.io");
@@ -19,18 +20,38 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 
+// :: middlewares ::
+app.use(cors());
+app.use(express.json());
+
 const io = new Server(server, {
 	cors: {},
 });
 
+let activeUsers = [];
+
 io.on("connection", (socket) => {
 	const { user } = socket.handshake.query;
-	console.log({ user });
-});
 
-// :: middlewares ::
-app.use(cors());
-app.use(express.json());
+	if (!activeUsers.includes(user)) {
+		activeUsers.push(user);
+	}
+	io.emit("server:activeUsers", activeUsers);
+
+	socket.on("client:join-room", (room) => {
+		socket.join(room);
+		console.log(`${user} joined room ${room}`);
+	});
+
+	socket.on("client:send-message", (chat) => {
+		socket.to(chat.room).emit("server:send-message", chat);
+	});
+
+	socket.on("disconnect", () => {
+		activeUsers = activeUsers.filter((e) => e != user);
+		io.emit("server:activeUsers", activeUsers);
+	});
+});
 
 // :: routes ::
 app.get("/", (req, res) => {
@@ -47,6 +68,7 @@ app.use("/post", postRoute);
 app.use("/jwt", jwtRoute);
 app.use("/user", userProfileRoute);
 app.use("/friend", friendRoute);
+app.use("/chat", chatRoute);
 
 server.listen(process.env.PORT, () => {
 	console.log("server is running");
