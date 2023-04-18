@@ -1,9 +1,9 @@
-﻿const mongoose = require('mongoose');
+﻿const mongoose = require("mongoose");
 
-const {String,ObjectId,Number} = mongoose.Schema.Types;
+const { String, ObjectId, Number } = mongoose.Schema.Types;
 
 const messageSchema = mongoose.Schema({
-	rooms: { type: String, required: true },
+	room: { type: String, required: true },
 	sender: { type: ObjectId, ref: "User", required: true },
 	recipient: { type: ObjectId, ref: "User", required: true },
 	message: { type: String, required: true },

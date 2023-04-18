@@ -13,6 +13,7 @@ const jwtRoute = require("./routes/jwtRoute");
 const userProfileRoute = require("./routes/profileRoute");
 const friendRoute = require("./routes/friendRoute");
 const chatRoute = require("./routes/chatRoute");
+const messageRoute = require("./routes/messageRoute");
 
 const http = require("http");
 const { Server } = require("socket.io");
@@ -40,7 +41,7 @@ io.on("connection", (socket) => {
 
 	socket.on("client:join-room", (room) => {
 		socket.join(room);
-		console.log(`${user} joined room ${room}`);
+		// console.log(`${user} joined room ${room}`);
 	});
 
 	socket.on("client:send-message", (chat) => {
@@ -69,6 +70,7 @@ app.use("/jwt", jwtRoute);
 app.use("/user", userProfileRoute);
 app.use("/friend", friendRoute);
 app.use("/chat", chatRoute);
+app.use("/message", messageRoute);
 
 server.listen(process.env.PORT, () => {
 	console.log("server is running");
