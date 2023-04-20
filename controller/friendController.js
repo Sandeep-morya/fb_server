@@ -13,6 +13,9 @@ const addFriend = asyncHandler(async (req, res) => {
 const acceptRequest = asyncHandler(async (req, res) => {
 	const { user_id, friendRequest, users } = req.body;
 
+	await User.findByIdAndUpdate(friendRequest, {
+		$push: { friends: user_id },
+	});
 	await User.findByIdAndUpdate(user_id, {
 		$push: { friends: friendRequest },
 	});
@@ -20,7 +23,8 @@ const acceptRequest = asyncHandler(async (req, res) => {
 	await User.findByIdAndUpdate(user_id, {
 		$pull: { requests: friendRequest },
 	});
-	console.log({ users });
+
+	console.log({ users }); // :: only log purpose ::
 	res.send("Request Accept Successfully");
 });
 
