@@ -26,7 +26,9 @@ app.use(cors());
 app.use(express.json());
 
 const io = new Server(server, {
-	cors: {},
+	cors: {
+		origin: "*",
+	},
 });
 
 let activeUsers = [];
