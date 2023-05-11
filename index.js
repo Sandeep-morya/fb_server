@@ -27,7 +27,7 @@ app.use(express.json());
 
 const io = new Server(server, {
 	cors: {
-		origin: ["https://facebook-clone-server-ouj0.onrender.com","http://localhost:8080"],
+		origin: "*",
 	},
 });
 
