@@ -11,11 +11,10 @@ const getUserDocument = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
 	const secret = req.headers.authorization;
-	// console.log(process.env.SECRET == secret, process.env.SECRET, { secret });
-	// console.log(req.query);
+	const name = { $regex: req.query.q, $options: "i" };
 
 	if (process.env.SECRET == secret) {
-		const users = await User.find(req.query)
+		const users = await User.find(name ? { name } : req.query)
 			.sort({ updatedAt: -1 })
 			.limit(30)
 			.select("_id image name");
